@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Quiz Page</title>
+    <style>
+        /* Global styles */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body {
+            height: 100%;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Background Image */
+        body {
+            background-image: url("Screenshot 2024-12-21 190212.jpeg"); /* Replace with your image URL */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            height: 100%;
+            background-repeat: no-repeat;
+        }
+
+        /* Tab Navigation */
+        .tab {
+            display: flex;
+            background-color: #333;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1;
+        }
+        .tab button {
+            background-color: #333;
+            color: white;
+            padding: 14px 16px;
+            border: none;
+            cursor: pointer;
+            flex: 1;
+            text-align: center;
+            font-size: 17px;
+        }
+        .tab button:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        .tab button.active {
+            background-color: #ddd;
+            color: black;
+        }
+
+        /* Content Sections */
+        .tabcontent {
+            display: none;
+            padding: 20px;
+            box-sizing: border-box;
+            min-height: 100vh;
+            padding-top: 60px; /* Prevent content from being hidden under the tabs */
+        }
+
+        /* Home, Quiz, Contact Backgrounds */
+        #Home { background-color: rgba(184, 244, 250, 0.8); }
+        #Quiz { background-color: rgba(223, 255, 190, 0.8); }
+        #Contact { background-color: rgba(253, 177, 235, 0.8); }
+
+        /* Accordion Styles */
+        .accordion {
+            background-color: #f1f1f1;
+            color: #444;
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            text-align: left;
+            border: none;
+            outline: none;
+            font-size: 15px;
+            transition: 0.4s;
+            margin: 5px 0;
+            border-radius: 5px;
+        }
+
+        .active, .accordion:hover {
+            background-color: #ccc;
+        }
+
+        .panel {
+            padding: 0 18px;
+            display: none;
+            overflow: hidden;
+            background-color: #f9f9f9;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+
+        .accordion::after {
+            content: "+";
+            font-size: 20px;
+            color: #444;
+            float: right;
+        }
+
+        .accordion.active::after {
+            content: "-";
+        }
+
+        /* Flip Cards */
+        .flip-card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        .flip-card {
+            background-color: transparent;
+            width: 200px;
+            height: 300px;
+            perspective: 1000px;
+            margin: 10px;
+        }
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+        }
+        .flip-card-front {
+            background-color: #bbb;
+            color: black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+        .flip-card-back {
+            background-color: #333;
+            color: white;
+            transform: rotateY(180deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Tab Navigation -->
+    <div class="tab">
+        <button class="tablinks active" onclick="openTab(event, 'Home')" id="defaultOpen">Home</button>
+        <button class="tablinks" onclick="openTab(event, 'Quiz')">Quiz</button>
+        <button class="tablinks" onclick="openTab(event, 'Contact')">Contact</button>
+    </div>
+
+    <!-- Tab Content -->
+    <div id="Home" class="tabcontent">
+        <h1>Welcome to the Home Page</h1>
+        <h2>Here is the brief for every week in the NPTEL course: Stress Management</h2>
+        <br>
+        <br>
+        <br>
+        <br>
+
+        <!-- Accordion for Home Page -->
+        <button class="accordion">WEEK 1</button>
+        <div class="panel">
+            
+            <p>
+                <br><h3>Module 1</h3>
+                
+                Focus on the scientific foundations of stress.
+                <br>Explains what stress is and how it can be influenced by external and internal factors.
+                <br>Discusses why individuals behave differently during stressful situations.
+                <br>Explore the history and genesis of stress research.
+                <br>
+
+                <br><h3>Module 2</h3>
+                
+                Re-examines stress by focusing on the role of stressors, stress reactivity, and strain.
+                <br>Explores the different types of stressors, including biological, environmental, psychological, sociological, and philosophical.
+                <br>Delves into the concept of strain as the outcome of stress reactivity.
+                <br>Highlights the significance of stress management skills in mitigating the effects of stress.
+                <br>
+
+                <br><h3>Module 3</h3>
+                
+                Explores different types of stress, including acute stress and chronic stress.
+                <br>Provides a list of acute stressors that trigger this type of stress response.
+                <br>Examines the advantages and disadvantages of acute stress.
+                <br>Delves into the effects of chronic stress on various aspects of health and well-being.
+                <br>
+
+                <br><h3>Module 4</h3>
+                
+                Examines personality factors related to stress, including locus of control, self-esteem, personality types (A, C, D), and hardiness.
+                <br>Focuses on how genetic makeup influences health and behavior.
+                <br>Explores the concept of learned helplessness and how it relates to locus of control.
+                <br>
+
+                <br><h3>Module 5</h3>
+                
+                Focuses on stress in college life.
+                <br>Provides case vignettes highlighting common stressors faced by college students.
+                <br>Discusses developmental tasks during college years that can contribute to stress.
+                <br>Examines the effects of stress on college students.
+                <br>Explores resilience studies in college settings, both in general and in India<br>
+                <br>
+                </p>
+        </div>
+
+        <button class="accordion">WEEK 2</button>
+        <div class="panel">
+            <p>
+                <br><h3>Module 1: Stress and the Nervous System</h3>
+                
+                This module focuses on how stress affects the human body, particularly the nervous system.
+                <br>It delves into the different levels of the brain: the vegetative level, the limbic system, and the neocortical level.
+                <br>The reticular activating system (RAS) is discussed in detail, emphasizing its role in regulating arousal and attention.
+                <br>The module also covers the brain stem and its functions, along with the importance of the autonomic nervous system (ANS).
+                <br>The ANS comprises the sympathetic and parasympathetic nervous systems, responsible for the fight-or-flight response and relaxation, respectively.
+                <br>
+                <br><h3>Module 2: Stress and the Hypothalamic-Pituitary-Adrenal (HPA) Axis</h3>
+                
+                The endocrine system's crucial role in stress response is examined.
+                <br>The focus is on the HPA axis, a network of glands that release hormones during stress.
+                <br>This module explains how the hypothalamus, pituitary gland, and adrenal glands work together to activate the HPA axis.
+                <br>It highlights the role of cortisol and epinephrine in the stress response and their effects on the body.
+                <br>The module also discusses the concept of allostatic load, the negative consequences of prolonged stress, and the importance of maintaining cortisol balance for overall health.
+                <br>
+                <br><h3>Module 3: Stress and the Immune System</h3>
+                
+                This module focuses on the intricate connection between stress and the immune system.
+                <br>It explores the immune system's role in defending the body against pathogens and how stress can suppress its functions.
+                <br>The module delves into the history of research on stress and the immune system, highlighting the work of Janice Kiecolt-Glaser and Ronald Glaser.
+                <br>It examines the concept of allostatic load and its impact on immune function, emphasizing the role of cortisol in both protecting and harming the immune system.
+                <br>It discusses the consequences of both elevated and lowered cortisol levels and how these affect the body's ability to fight off infections.
+                <br>The module concludes with strategies to deal with stress-induced immune system suppression, including building social support and practicing relaxation techniques.
+                <br>
+                <br><h3>Module 4: Health Risk Associated with Chronic Stress</h3>
+                
+                The focus of this module is on the harmful effects of chronic stress on various body systems.
+                <br>It examines the impact of stress on the musculoskeletal, cardiovascular, gastrointestinal, respiratory, and endocrine.<br>
+                <br>
+                  </p>
+        </div>
+
+        <button class="accordion">WEEK 3</button>
+        <div class="panel">
+            <p>
+                <br>
+                <br><h3>Module 1: Understanding Your Stress Level</h3>
+                
+                This module emphasizes the importance of understanding your unique stressors, focusing on how early experiences and individual interpretations contribute to different stress responses.
+                <br>Key Topics:
+                <br>Understanding the difference in stress perception through illustrative examples.
+                <br>Stress mapping as a method to identify and understand stressors.
+                <br>Recognizing the external and internal dimensions of stress.
+                <br>Utilizing a stress journal to analyze patterns and triggers.
+                <br>
+                <br><h3>Module 2: Understanding the Personality Patterns of Stressed Individuals</h3>
+                
+                This module delves into personality patterns, focusing on locus of control and self-esteem, to understand how they impact stress levels.
+                <br>Key Topics:
+                <br>Examining the relationship between personality traits and stress response.
+                <br>Exploring various stressor scales and their applications.
+                <br>Understanding the concept of locus of control and its influence on stress.
+                <br>Recognizing the impact of low self-esteem on stress and how to raise it.
+                <br>
+                <br><h3>Module 3: Role of Thoughts, Beliefs, and Emotions in Stress</h3>
+                
+                This module examines the cognitive model of anxiety and explores the role of thoughts, beliefs, and behaviors in managing stress.
+                <br>Key Topics:
+                <br>Understanding the connection between thoughts, mood, and behavior.
+                <br>Exploring how anxious thoughts are formed and nurtured.
+                <br>Examining the role of safety behaviors and their impact.
+                <br>Identifying cognitive biases and distortions.
+                <br>Learning to manage anxious thoughts through constructive self-talk and cognitive restructuring.
+                <br>
+                <br><h3>Module 4: Situational Control and Assertiveness</h3>
+                
+                This module focuses on situational control techniques, particularly assertiveness, as a key strategy for managing stress.
+                <br>Key Topics:
+                <br>Two approaches to coping: Self-control and Situational Control.
+                <br>Problem-solving as a strategy for situational control.
+                <br>Assertiveness as a tool to improve interpersonal relationships and manage stress.
+                <br>Techniques for practicing assertiveness, including assertive communication, assertive listening, and body language.
+                <br>The benefits of assertive communication for reducing conflicts, enhancing self-esteem, and minimizing stress<br>
+                <br>
+                  </p>
+        </div>
+
+        <button class="accordion">WEEK 4</button>
+        <div class="panel">
+            <p>
+                Stress Management
+                <br>
+            <br><h3>Module 1: Developing Cognitive Coping Skills</h3>
+            
+            Coping: The thoughts and actions we use to deal with a threatening situation.
+            <br>Coping Skills (Strategies): Defense mechanisms to avoid or lessen psychological pain.
+            <br>Maladaptive Coping Skills: Ways of dealing with stress that usually make things worse.
+            <br>Building Resilience to Stress:
+            <br>Prevention: Decreasing the source of stress and increasing coping skills.
+            <br>Targeted Intervention: Helping the individual change the source of stress and teaching ways to adapt to situations without stress.
+            <br>Coping Styles:
+            <br>Problem-solving: Focuses on ways to tackle the issue.
+            <br>Emotion-focused: Gathers tools to nurture one's emotional health.
+            <br>Active Coping: Involves awareness of the stressor and attempts to reduce negative outcomes.
+            <br>Avoidant Coping: Ignores the issue, often resulting in activities that aid in the denial of the problem.
+            <br>Specific Coping Strategies:
+            <br>Humor: Pointing out the amusing aspects of the problem.
+            <br>Seeking Support: Asking for help or emotional support.
+            <br>Problem-solving: Locating the source of the problem and determining solutions.
+            <br>Relaxation: Engaging in relaxing activities or practicing calming techniques.
+            <br>Physical Recreation: Regular exercise, such as running or team sports.
+            <br>Adjusting Expectations: Anticipating various outcomes.
+            <br>Denial: Avoiding the issue altogether.
+            <br>Self-blame: Internalizing the issue and blaming oneself.
+            <br>Venting: Expressing emotions to friends or family.
+            <br>
+            <br><h3>Module 2: Other Relaxation Techniques</h3>
+            
+            Biofeedback: Uses electronic instruments to monitor and physiological changes.
+            <br>Diaphragmatic Breathing: Deep, slow breathing.
+            <br>Yoga and Stretching: Various types of yoga, including Hatha yoga, which includes stretching.
+            <br>Mindfulness: Focusing attention on the present moment.
+            <br>Tai Chi: Gentle physical exercise and stretching, originally formed for self-defense.
+            <br>
+            <br><h3>Module 3 - Do It Yourself Strategies for Stress Management</h3>
+            
+            Self Help: Have a positive attitude to help yourself to bring about a change.
+            <br>Identify stressors:
+            <br>Identify vulnerable zones of your body (aches, pains, appetite, digestion, sleep).
+            <br>Identify disturbing Negative Automatic Thoughts (NAT) triggered during stress.
+            <br>Chart down strategies you have used so far to deal with them - adaptive or maladaptive?
+            <br>Explore strategies to avoid, minimize, modify, or modulate stressors.
+            <br>Employ strategies to reduce excessive arousal and dysfunction:
+            <br>Remind yourself of the relationship between thought, mood, and behavior.
+            <br>Thoughts: Awareness of NAT, employing strategies to stop them.
+            <br>Behavior: Exploring opportunities, facing situations rather than avoidance, engaging in face-to-face social interactions, and employing problem-solving strategies.
+            <br>Strategies to ventilate or express the stress response:
+            <br>Practicing relaxation techniques.
+            <br>Regular exercise.
+            <br>Practicing assertiveness.
+            <br>Time management techniques.
+            <br>Time Management:
+            <br>Time awareness and time scheduling:
+            <br>Prepare an activity chart.
+            <br>Get a planner.
+            <br>Evaluate yourself for over/underestimation of time.
+            <br>Task: Plan two activities, write down expected and actual times, and evaluate the task.
+            <br>To-do list:
+            <br>Break problems into small parts.
+            <br>Prioritize tasks.
+            <br>Set a time to write down the next day's agenda.
+            <br>Stick to commitments.
+            <br>Evaluate at the end of the day.
+            <br>Reward yourself.
+              </p>
+        </div>
+
+    </div>
+
+    <div id="Quiz" class="tabcontent">
+        <h1>Quiz Section</h1>
+        <p>Here are some quiz cards for you to try.</p>
+
+        <!-- Flip Cards for Quiz Page -->
+        <div class="flip-card-container">
+            <!-- Card 1 -->
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <p>Question 1.Who related evolution to psychosomatic disease?</p>
+                    </div>
+                    <div class="flip-card-back">
+                        <p>Answer: A T W Simeons</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <p>Question 2:Pathological niceness is displayed by which personality?</p>
+                    </div>
+                    <div class="flip-card-back">
+                        <p>Answer: Type C personality</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <p>Question 3:What is the other name for Protective factor?</p>
+                    </div>
+                    <div class="flip-card-back">
+                        <p>Answer: Hardiness</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <p>Question 4:Full form of ACTH?</p>
+                    </div>
+                    <div class="flip-card-back">
+                        <p>Answer: Adrenocorticotrophic Hormone</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <p>Question 5:What is the stressor scale given by Holmes and Rahe?</p>
+                    </div>
+                    <div class="flip-card-back">
+                        <p>Answer: Social Readjustment Rating Scale</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 6 -->
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <p>Question 6:Full form of OCD?</p>
+                    </div>
+                    <div class="flip-card-back">
+                        <p>Answer: Obsessive-Compulsive Disorder</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 7 -->
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <p>Question 7:In cognitive reconstructing which letter represents 'identifying irrational beliefs'?</p>
+                    </div>
+                    <div class="flip-card-back">
+                        <p>Answer: letter D</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 8 -->
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <p>Question 8:Magical thinking is part of which coping strategy</p>
+                    </div>
+                    <div class="flip-card-back">
+                        <p>Answer: Emotional Coping</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 9 -->
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <p>Question 9:Progressive Muscle Relaxation was developed by?</p>
+                    </div>
+                    <div class="flip-card-back">
+                        <p>Answer: Edmund Jacobson</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 10 -->
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <p>Question 10:In excercise prescription,FITT, what does I stand for? </p>
+                    </div>
+                    <div class="flip-card-back">
+                        <p>Answer: Intensity</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="Contact" class="tabcontent">
+        <h1>Contact Page</h1>
+        <br><p><b>Vindhya T V</b><br>DSU CSE AIML</p><br>
+        <p><b>Vangala Angel</b><br>DSU CSE AIML</p>
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+        // Make sure the Home tab is visible by default
+        document.getElementById("defaultOpen").click();
+
+        // Accordion function for Home page
+        var acc = document.getElementsByClassName("accordion");
+        for (var i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var panel = this.nextElementSibling;
+                if (panel.style.display === "block") {
+                    panel.style.display = "none";
+                } else {
+                    panel.style.display = "block";
+                }
+            });
+        }
+    </script>
+</body>
+</html>
+
+
+
